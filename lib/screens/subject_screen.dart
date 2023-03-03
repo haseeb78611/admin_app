@@ -67,6 +67,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                       case 'outline':
                         Navigator.push(context, MaterialPageRoute(builder: (context) => OutlineScreen(
                           query: query.child(subject),
+                          name : name
                         ),));
                         break;
                     }

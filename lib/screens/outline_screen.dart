@@ -10,20 +10,18 @@ import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 class OutlineScreen extends StatefulWidget {
   final query;
   final name;
-  final subject; // id is mid or final
+
   const OutlineScreen({super.key,
      this.query,
      this.name,
-     this.subject
   });
   @override
-  State<OutlineScreen> createState() => _OutlineScreenState(query : query, name : name, subject: subject);
+  State<OutlineScreen> createState() => _OutlineScreenState(query : query, name : name, );
 }
 class _OutlineScreenState extends State<OutlineScreen> {
   final query;
   final name;
-  final subject;
-  _OutlineScreenState({this.query, this.name, this.subject});
+  _OutlineScreenState({this.query, this.name, });
 
   bool loading = false;
   double progress = 0.0;
@@ -34,9 +32,22 @@ class _OutlineScreenState extends State<OutlineScreen> {
         FileDownloader.downloadFile(url: url,name: fileName,
           onDownloadCompleted: (path) {
             Toast().show('$fileName Downloaded');
+            setState(() {loading = false;});
           },
           onDownloadError: (errorMessage) {
-            Toast().show(errorMessage);
+            showDialog(context: context, builder: (context) {
+              return Container(
+                child: AlertDialog(
+                  title : Text('Error'),
+                  content: Text(errorMessage.toString()),
+                  actions: [
+                    TextButton(onPressed: ()=> Navigator.pop(context), child: Text('OK', style: TextStyle(color: Colors.black)))
+                  ],
+                ),
+              );
+            },
+            );
+            setState(() {loading = false;});
           },);
       }
     }catch(e){
@@ -64,16 +75,26 @@ class _OutlineScreenState extends State<OutlineScreen> {
   downloadFile(String url, String fileName) async {
     setState(() {loading = true;});
     await saveFile(url, fileName);
-    setState(() {loading = false;});
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(name),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(name),
+            loading ?
+            CircularProgressIndicator(color: Colors.black,)
+                :
+                Container()
+
+          ],
+        )
+
       ),
       body: StreamBuilder(
-        stream: query.child(subject).onValue,
+        stream: query.onValue,
         builder: (context, AsyncSnapshot<DatabaseEvent>snapshot) {
           if(snapshot.hasData){
             var list = snapshot.data!.snapshot.children.toList();
@@ -112,7 +133,7 @@ class _OutlineScreenState extends State<OutlineScreen> {
                                         Container(width: 50,),
                                         InkWell(
                                             onTap: (){
-                                              query.child(subject).child(time).remove();
+                                              query.child(time).remove();
                                             },
                                             child: Icon(Icons.highlight_remove_rounded, color: Colors.white,size: 35)),
                                       ]),
