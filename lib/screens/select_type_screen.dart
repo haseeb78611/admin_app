@@ -1,7 +1,10 @@
 // class work and slides selector Screen 2nd Screen
 import 'package:class_appp/screens/subject_screen.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+
+import '../Widgets/internet_connection_checker.dart';
 
 class SelectTypeScreen extends StatefulWidget {
   final String semester;
@@ -54,7 +57,10 @@ class _SelectTypeScreenState extends State<SelectTypeScreen> {
                 },);
             }
             else{
-              return Center(child: CircularProgressIndicator());
+              return StreamBuilder<ConnectivityResult>(
+                  stream: Connectivity().onConnectivityChanged,
+                  builder: (context, snapshot) => InternetConnectionWidget(snapshot : snapshot)
+              );
             }
 
 

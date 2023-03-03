@@ -1,6 +1,4 @@
-import 'package:class_appp/Widgets/button.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PDf extends StatefulWidget {
@@ -16,7 +14,6 @@ class _PDfState extends State<PDf> {
   final name;
   _PDfState({this.name,this.path});
 
-  PDFDocument? document;
   bool loading = true;
 
   loadDocument() async {

@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:class_appp/Services/taost.dart';
 import 'package:class_appp/screens/pdf.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+
+import '../Widgets/internet_connection_checker.dart';
 
 class OutlineScreen extends StatefulWidget {
   final query;
@@ -169,7 +172,10 @@ class _OutlineScreenState extends State<OutlineScreen> {
 
           }
           else{
-            return Center(child: CircularProgressIndicator(),);
+            return StreamBuilder<ConnectivityResult>(
+                stream: Connectivity().onConnectivityChanged,
+                builder: (context, snapshot) => InternetConnectionWidget(snapshot : snapshot)
+            );
           }
         },
       ),

@@ -1,6 +1,9 @@
 import 'package:class_appp/screens/slides_screen.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+
+import '../Widgets/internet_connection_checker.dart';
 
 
 class MidAndFinalScreen extends StatefulWidget {
@@ -66,7 +69,10 @@ class _MidAndFinalScreenState extends State<MidAndFinalScreen> {
               },);
           }
           else{
-            return Center(child: CircularProgressIndicator(),);
+            return StreamBuilder<ConnectivityResult>(
+                stream: Connectivity().onConnectivityChanged,
+                builder: (context, snapshot) => InternetConnectionWidget(snapshot : snapshot)
+            );
           }
         },
       ),

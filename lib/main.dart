@@ -8,12 +8,14 @@ import 'package:firebase_core/firebase_core.dart';
 
 
 void main() async{
+
   WidgetsFlutterBinding.ensureInitialized();
   await  Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
   LocalNotificationService.initialize();
   runApp(const MyApp());
 }
+
 Future<void> backgroundHandler(RemoteMessage message) async {
   print(message.data.toString());
   print(message.notification!.title);

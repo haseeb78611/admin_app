@@ -2,8 +2,11 @@
 import 'package:class_appp/screens/class_work_screen.dart';
 import 'package:class_appp/screens/lab_and_theory_screen.dart';
 import 'package:class_appp/screens/outline_screen.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+
+import '../Widgets/internet_connection_checker.dart';
 
 
 class SubjectsScreen extends StatefulWidget {
@@ -86,7 +89,10 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
               },);
           }
           else{
-            return Center(child: CircularProgressIndicator());
+            return StreamBuilder<ConnectivityResult>(
+                stream: Connectivity().onConnectivityChanged,
+                builder: (context, snapshot) => InternetConnectionWidget(snapshot : snapshot)
+            );
           }
 
         },

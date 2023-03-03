@@ -1,9 +1,11 @@
 import 'package:class_appp/screens/select_type_screen.dart';
 import 'package:class_appp/screens/select_upload_type.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
+import '../Widgets/internet_connection_checker.dart';
 import '../notificationservice/local_notification_service.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -16,11 +18,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final database =  FirebaseDatabase.instance.ref();
   String deviceTokenToSendPushNotification = '';
+  Connectivity connectivity = Connectivity();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     //Background State
     FirebaseMessaging.onMessageOpenedApp.listen(
           (message) {
@@ -108,8 +112,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
               },);
           }
-          else {
-            return Center(child: CircularProgressIndicator());
+          else{
+            return StreamBuilder<ConnectivityResult>(
+              stream: connectivity.onConnectivityChanged,
+              builder: (context, snapshot) => InternetConnectionWidget(snapshot : snapshot)
+            );
           }
 
         },
