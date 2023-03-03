@@ -13,10 +13,12 @@ class InternetConnectionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     switch(snapshot.connectionState){
       case  ConnectionState.active :
-        return  CircularProgressIndicator();
+        return  Center(child: CircularProgressIndicator(strokeWidth: 50,));
       default:
-        return
-            Center(child: Icon(Icons.signal_wifi_connected_no_internet_4_outlined, size: 200,));
+        return Scaffold(
+          backgroundColor: Colors.blue,
+          body: Center(child: Icon(Icons.signal_wifi_statusbar_connected_no_internet_4_outlined, size: 200, color: Colors.white60,)),
+        );
     }
   }
 }
