@@ -1,7 +1,6 @@
 //3rd screen subjects shown screen
 import 'package:class_appp/screens/class_work_screen.dart';
 import 'package:class_appp/screens/lab_and_theory_screen.dart';
-import 'package:class_appp/screens/outline_screen.dart';
 import 'package:class_appp/screens/slides_screen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -98,7 +97,7 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                     return Center(child: CircularProgressIndicator());
                   }
                   else{
-                    return Center(child: Icon(Icons.signal_wifi_statusbar_connected_no_internet_4_outlined, size: 200, color: Colors.white60,));
+                    return Center(child: Icon(Icons.signal_wifi_statusbar_connected_no_internet_4_outlined, size: 200, color: Colors.black,));
                   }
                 }
             );

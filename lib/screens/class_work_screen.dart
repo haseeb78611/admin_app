@@ -74,7 +74,7 @@ class _ClassWorkScreenState extends State<ClassWorkScreen> {
                     return Center(child: CircularProgressIndicator());
                   }
                   else{
-                    return Center(child: Icon(Icons.signal_wifi_statusbar_connected_no_internet_4_outlined, size: 200, color: Colors.white60,));
+                    return Center(child: Icon(Icons.signal_wifi_statusbar_connected_no_internet_4_outlined, size: 200, color: Colors.black,));
                   }
                 }
             );

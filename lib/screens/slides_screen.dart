@@ -42,11 +42,9 @@ class _SlidesScreenState extends State<SlidesScreen> {
             onDownloadCompleted: (path) {
             print('File Downloaded');
               Toast().show('$fileName Downloaded');
-            setState(() {loading = false;});
             },
             onDownloadError: (errorMessage) {
               Toast().show(errorMessage);
-              setState(() {loading = false;});
             },
             onProgress: (fileName, progress) {
             setState(() {
@@ -74,7 +72,6 @@ class _SlidesScreenState extends State<SlidesScreen> {
       var result = await permission.request();
       if(result ==  PermissionStatus.granted){
         Toast().show('Permission Granted');
-        setState(() {loading = true;});
         return true;
       }
       else{
@@ -84,23 +81,10 @@ class _SlidesScreenState extends State<SlidesScreen> {
     }
 
   }
-  Future<StreamBuilder<ConnectivityResult>> checkInternet()async {
-     return StreamBuilder<ConnectivityResult>(
-       stream: Connectivity().onConnectivityChanged,
-       builder: (context, snapshot) {
-         if (snapshot.connectionState == ConnectionState.active){
-           return Center();
-         }
-         else{
-           return InternetAlertDialog();
-         }
-       },
-     );
-
-  }
    downloadFile(String url, String fileName) async {
     setState(() {loading = true;});
     await saveFile(url, fileName);
+    setState(() {loading = false;});
   }
   @override
   Widget build(BuildContext context) {
@@ -197,7 +181,7 @@ class _SlidesScreenState extends State<SlidesScreen> {
                         return Center(child: CircularProgressIndicator());
                       }
                       else{
-                        return Center(child: Icon(Icons.signal_wifi_statusbar_connected_no_internet_4_outlined, size: 200, color: Colors.white60,));
+                        return Center(child: Icon(Icons.signal_wifi_statusbar_connected_no_internet_4_outlined, size: 200, color: Colors.black,));
                       }
                     }
                 );
