@@ -2,6 +2,7 @@
 import 'package:class_appp/screens/class_work_screen.dart';
 import 'package:class_appp/screens/lab_and_theory_screen.dart';
 import 'package:class_appp/screens/outline_screen.dart';
+import 'package:class_appp/screens/slides_screen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -68,9 +69,10 @@ class _SubjectsScreenState extends State<SubjectsScreen> {
                         ),));
                         break;
                       case 'outline':
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => OutlineScreen(
-                          query: query.child(subject),
-                          name : name
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SlidesScreen(
+                          query: query,
+                          name : subject,
+                          id: subject,
                         ),));
                         break;
                     }

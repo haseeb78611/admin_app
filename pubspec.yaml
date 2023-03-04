@@ -49,6 +49,7 @@ dependencies:
   flutter_file_downloader: ^1.1.0+1
   syncfusion_flutter_pdfviewer: ^20.4.52
   connectivity_plus: ^3.0.3
+  liquid_progress_indicator: ^0.4.0
 
 
 
