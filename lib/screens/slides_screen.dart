@@ -10,7 +10,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
-import '../Widgets/internet_connection_checker.dart';
 
 class SlidesScreen extends StatefulWidget {
   final query;
